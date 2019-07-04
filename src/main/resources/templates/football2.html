@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style >
+*{
+ /* margin:0px;
+  padding: 0px;
+  font-family: sans-serif;
+}
+#sidebar{
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  background:   #c0c0c0
+}
+
+#sidebar ul li {
+  color:rgba(203,230,230,0.9);
+  list-style: none;
+  padding: 15px 10px;
+  border-bottom: 1px solid rgba(100,100,100, 0.3);
+}
+  */
+
+
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a, a:hover, a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#sidebar {
+    /* don't forget to add all the previously mentioned styles here too */
+    background: #7386D5;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    border-bottom: 1px solid #47748b;
+}
+
+#sidebar ul p {
+    color: #fff;
+    padding: 10px;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li.active > a, a[aria-expanded="true"] {
+    color: #fff;
+    background: #6d7fcc;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+   
+</style>
+</head>
+<body>
+
+<div id="app">
+<div class="wrapper">
+  
+    <nav id="sidebar">
+       
+    
+        <div class="sidebar-header">
+            <h3>Bootstrap Sidebar</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+      
+            <p>Dummy Heading</p>
+<input type="checkbox" id="checkbox"> checkbox
+	
+	<button  id="btn"  title="Програмно кликнуть по checkbox" >Програмно кликнуть по checkbox</button>
+                 <li class="active">
+                <a href="#football" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Football   </a><input   type="checkbox" name="foo"  value="Football" v-model ="typeGame" />
+                <ul class="collapse list-unstyled" id="football">
+                   <li class="active">
+                  
+            <li class="active">
+                <a href="#england" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >England   </a>  <input   type="checkbox"  value="England" v-model ="country" />
+                <ul class="collapse list-unstyled" id="england">
+                   <li class="active">
+  
+   <a href="#premierleague" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"  >Premier league</a> <input   type="checkbox"  value="Premier" v-model ="event" /> 
+                <ul class="collapse list-unstyled" id="premierleague"> 
+                
+                   
+                               <div  v-for="outCheckbox in outCheckboxss('England', 'Premier')" >
+                <li>{{outCheckbox.country}}</li>
+<li>{{outCheckbox.typeGame}}</li>
+<li>{{outCheckbox.event}}</li>
+<br>
+                </div> 
+                
+   
+</ul></li>
+
+
+              <a href="#Cub" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"   >Cup</a> <input   type="checkbox" name=  value="Cup" v-model ="event" />
+                <ul class="collapse list-unstyled" id="Cub">
+          <div  v-for="outCheckbox in outCheckboxss('England', 'Cup')" >
+  
+                <li>{{outCheckbox.country}}</li>
+<li>{{outCheckbox.typeGame}}</li>
+<li>{{outCheckbox.event}}</li>
+<br>
+                </div> 
+
+                
+            
+                
+</ul></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="#ukraine" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Ukraine</a> <input   type="checkbox"  value="Ukraine" v-model ="country" />
+                <ul class="collapse list-unstyled" id="ukraine">
+                      <div  v-for="outCheckbox in outCheckboxss('Ukraine', 'Cup')" >
+  
+                <li>{{outCheckbox.country}}</li>
+<li>{{outCheckbox.typeGame}}</li>
+<li>{{outCheckbox.event}}</li>
+<br>
+                </div> 
+                </ul>
+            </li>
+            
+     
+            
+        </ul>
+             <li class="active">
+                <a href="#basketball" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle" >Basketball</a><input   type="checkbox"  value="Basketball" v-model ="typeGame" />
+                <ul class="collapse list-unstyled" id="basketball">
+                   <li class="active">
+                   <li>
+                        <a href="#">Page 1</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 2</a>
+                    </li>
+                    <li>
+                        <a href="#">Page 3</a>
+                    </li>
+                   </li></ul></li>
+            
+    </nav>
+
+</div>
+  
+              <div v-if="event !=0 || country !=0 || typeGame !=0">
+<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#hide-me" >Collapse Bootstrap.js</button>
+<div id="hide-me" class="collapse show">
+
+
+
+<h3 v-if="country[0] == 'England' || country[1] == 'England' || typeGame =='Football' ">England Event</h3>
+  <div  v-for="post in selectedByEvent" v-if="post.country === 'England'">
+<li>{{post.typeGame}}</li>
+<li>{{post.country}}</li>
+<li>{{post.event}}</li>
+<br>
+</div>
+
+
+
+
+
+
+<!-- England events-->
+<h3 v-if="country[0] == 'England' || country[1] == 'England' || typeGame =='Football' || event == 'Premier' || event[1] == 'Premier'">Premier league</h3>
+  <div  v-for="post in selectedByEvent" v-if="post.event === 'Premier' && post.country === 'England' ">
+<li>{{post.typeGame}}</li>
+<li>{{post.country}}</li>
+<li>{{post.event}}</li>
+<br>
+</div>
+
+
+<h3 v-if="country[0] == 'England' || country[1] == 'England' || typeGame =='Football' || event == 'Cup' || event[1] == 'Cup'">Cup</h3>
+  <div  v-for="post in selectedByEvent" v-if="post.event === 'Cup' && post.country === 'England' ">
+<li>{{post.typeGame}}</li>
+<li>{{post.country}}</li>
+<li>{{post.event}}</li>
+<br>
+</div>
+
+<!-- England events end-->
+
+
+<h3 v-if="country[0] == 'Ukraine' || country[1] == 'Ukraine' || typeGame =='Football'">Ukraine Event</h3>
+  <div  v-for="post in selectedByEvent"  v-if="post.country === 'Ukraine'">
+<li>{{post.typeGame}}</li>
+<li>{{post.country}}</li>
+<li>{{post.event}}</li>
+<br>
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+<div v-if="event !=0 || country !=0 || typeGame !=0">
+<h1>country = {{country }}</h1>
+<h1>typeGame ={{typeGame}}</h1>
+<h1>event ={{event }}</h1>
+   </div>
+
+ 
+   
+        
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+<script type="text/javascript"  src="https://code.jquery.com/jquery-3.3.1.slim.min.js">
+$('#btn').click(function(){
+	$('#checkbox').trigger('click'); 
+    return false;
+});
+</script>
+
+
+<script src="${rootUrl}/resources/js/axios.min.js"></script>
+<script src="${rootUrl}/resources/js/vue.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+<script>
+
+
+var app = new Vue({
+    el: '#app',
+    data: {
+    	outCheckbox:[],
+
+    	 arrs: [
+
+             { word: 'I' },
+
+             { word: 'am' },
+
+             { word: 'your'},
+
+             { word: 'array'},
+
+             { word: '!!!!!!!!!!!!'}
+
+         ],
+    countryText:'',
+    eventText:'',
+    	allFootballs:[],
+    	event:[],
+    	country:[],
+    	typeGame:[],
+    	serverUrl: "http://localhost:8080/api/v2"
+    },
+    
+    methods:{
+    	getAllFootball: function(){
+    		var self = this;
+    		axios.get(this.serverUrl + "/all")
+    		.then(function(all){
+    			self.allFootballs = all.data;
+    			
+    			
+    		}).catch(function(error){
+    			console.log(error);
+    		});
+    		
+    	},
+       	outCheckboxss: function(countryText, eventText) {
+      		console.log("countryText ="+ countryText + " eventText =" + eventText )
+    	    var self = this;
+        return this.allFootballs.filter(function (allFootballs) {
+            return allFootballs.country === countryText
+            && allFootballs.event === eventText;
+        });	   
+   
+    },
+    },
+    
+    computed:{
+    
+   /*    	outCheckboxss: function(countryText) {
+      		console.log("countryText ="+ countryText )
+    	    var self = this;
+        return this.allFootballs.filter(function (allFootballs) {
+            return  allFootballs.event === "Cup";
+        });	   
+   
+    }, */
+    
+       
+        getPosts(){
+          return this.allFootballs
+        },
+
+      /*   var event = select.event;
+        var country = select.country;
+        var typeGame = select.typeGame; */
+        
+        selectedByEvent(){
+          var vm = this;
+          var selectedByEvents;
+          var selectedByCountrys;
+          var selectedByTypeGames;
+          var events = this.event;
+          var countrys = this.country;
+          var typeGames = this.typeGame;
+          
+      
+          var selectedFilterByTypeGame = _.filter(vm.getPosts, function(select){
+              return typeGames.indexOf(select.typeGame)!=-1 ;
+            } );
+            if(_.isEmpty(typeGames)){
+            	selectedByTypeGames=vm.getPosts
+            }else{
+            	selectedByTypeGames = selectedFilterByTypeGame
+            	 return selectedByTypeGames;
+            }
+           
+        
+               
+       
+          var selectedFilterByCountry = _.filter(vm.getPosts, function(select){
+              return countrys.indexOf(select.country)!=-1 ;
+            } );
+            if(_.isEmpty(countrys)){
+            	selectedByCountrys=vm.getPosts
+            }else{
+            	selectedByCountrys = selectedFilterByCountry
+                return selectedByCountrys;
+            }
+     
+     
+            
+         
+          var selectedFilterByEvent = _.filter(vm.getPosts, function(select){
+            return events.indexOf(select.event)!=-1 ;
+          } );
+          if(_.isEmpty(events)){
+        	  selectedByEvents=vm.getPosts
+          }else{
+        	  selectedByEvents = selectedFilterByEvent
+        	   return selectedByEvents;
+          }
+       
+     
+         
+        }
+  
+         
+    
+        
+        
+      },
+    mounted() {
+    	this.getAllFootball();
+    },
+    
+    });
+</script>
+</html>
